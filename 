@@ -1,0 +1,61 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#	new file:   .classpath
+#	new file:   .project
+#	new file:   .settings/.jsdtscope
+#	new file:   .settings/org.eclipse.core.resources.prefs
+#	new file:   .settings/org.eclipse.jdt.core.prefs
+#	new file:   .settings/org.eclipse.wst.common.component
+#	new file:   .settings/org.eclipse.wst.common.project.facet.core.xml
+#	new file:   .settings/org.eclipse.wst.jsdt.ui.superType.container
+#	new file:   .settings/org.eclipse.wst.jsdt.ui.superType.name
+#	new file:   build/classes/pj/mvc/jsp/controller/CustomerController.class
+#	new file:   build/classes/pj/mvc/jsp/dao/CustomerDAO.class
+#	new file:   build/classes/pj/mvc/jsp/dao/CustomerDAOImpl.class
+#	new file:   build/classes/pj/mvc/jsp/dto/CustomerDTO.class
+#	new file:   build/classes/pj/mvc/jsp/service/CustomerService.class
+#	new file:   build/classes/pj/mvc/jsp/service/CustomerServiceImpl.class
+#	new file:   customer.mdj
+#	new file:   src/main/java/pj/mvc/jsp/controller/CustomerController.java
+#	new file:   src/main/java/pj/mvc/jsp/dao/CustomerDAO.java
+#	new file:   src/main/java/pj/mvc/jsp/dao/CustomerDAOImpl.java
+#	new file:   src/main/java/pj/mvc/jsp/dto/CustomerDTO.java
+#	new file:   src/main/java/pj/mvc/jsp/service/CustomerService.java
+#	new file:   src/main/java/pj/mvc/jsp/service/CustomerServiceImpl.java
+#	new file:   src/main/webapp/META-INF/MANIFEST.MF
+#	new file:   src/main/webapp/WEB-INF/lib/jsp-api.jar
+#	new file:   src/main/webapp/WEB-INF/lib/jstl.jar
+#	new file:   src/main/webapp/WEB-INF/lib/ojdbc6.jar
+#	new file:   src/main/webapp/WEB-INF/lib/servlet-api.jar
+#	new file:   src/main/webapp/WEB-INF/lib/standard.jar
+#	new file:   "src/main/webapp/WEB-INF/summary_\355\232\214\354\233\220\354\240\225\353\263\264.txt"
+#	new file:   src/main/webapp/WEB-INF/web.xml
+#	new file:   src/main/webapp/common/footer.jsp
+#	new file:   src/main/webapp/common/header.jsp
+#	new file:   src/main/webapp/common/main.jsp
+#	new file:   src/main/webapp/common/setting.jsp
+#	new file:   src/main/webapp/customer/join/idConfirmAction.jsp
+#	new file:   src/main/webapp/customer/join/join.jsp
+#	new file:   src/main/webapp/customer/join/joinAction.jsp
+#	new file:   src/main/webapp/customer/login/login.jsp
+#	new file:   src/main/webapp/customer/login/loginAction.jsp
+#	new file:   src/main/webapp/index.jsp
+#	new file:   src/main/webapp/resources/css/common/footer.css
+#	new file:   src/main/webapp/resources/css/common/header.css
+#	new file:   src/main/webapp/resources/css/common/main.css
+#	new file:   src/main/webapp/resources/css/customer/join.css
+#	new file:   src/main/webapp/resources/css/customer/login.css
+#	new file:   src/main/webapp/resources/images/main/eye.jpg
+#	new file:   src/main/webapp/resources/images/main/pet.jpg
+#	new file:   src/main/webapp/resources/js/common/main.js
+#	new file:   src/main/webapp/resources/js/customer/join.js
+#	new file:   src/main/webapp/resources/js/customer/login.js
+#	new file:   src/main/webapp/templet/sample.jsp
+#
