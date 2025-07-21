@@ -66,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService{
 		dto.setUser_hp(hp);
 		
 		
-		String email1 = request.getParameter("user_email1");
+		String email1 = request.getParameter("user_email");
 		String email2 = request.getParameter("user_email2");
 		String email = email1+"@"+email2;
 		dto.setUser_email(email);
@@ -111,6 +111,8 @@ public class CustomerServiceImpl implements CustomerService{
 //			session.setAttribute("sessionID", strId);
 			request.getSession().setAttribute("sessionID", strId);
 			
+		}else {
+			request.getSession().setAttribute("sessionID", null);
 		}
 		
 	}
@@ -119,21 +121,96 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public void deleteCustomerAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+				//3단계.화면에서 입력받은 값을 가져온다.
+				String sessionID = (String)request.getSession().getAttribute("sessionID");
+				String strPassword = request.getParameter("user_password");
+				
+				//4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+				CustomerDAO dao = CustomerDAOImpl.getInstance();
+				
+				//5단계. 회원정보 인증처리
+				int selectCnt = dao.idPasswordChk(sessionID, strPassword);
+				
+				int deleteCnt = 0;
+				//회원정보 인증성공시
+				if(selectCnt == 1) {
+					//회원정보 삭제처리
+					deleteCnt = dao.deleteCustomer(sessionID);
+					if(deleteCnt == 1) {
+						request.getSession().invalidate();
+					}
+				}
+				//6단계. jsp로 처리결과 전달
+				request.setAttribute("selectCnt", selectCnt);
+				request.setAttribute("deleteCnt", deleteCnt);
 	}
 
 	//회원정보 인증처리 및 상세페이지 조회
 	@Override
 	public void modifyDetailAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//3단계.화면에서 입력받은 값을 가져온다.
+		String sessionID = (String)request.getSession().getAttribute("sessionID");
+		String strPassword = request.getParameter("user_password");
 		
+		//4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+		CustomerDAO dao = CustomerDAOImpl.getInstance();
+		
+		//5단계. 회원정보 인증처리
+		int selectCnt = dao.idPasswordChk(sessionID, strPassword);
+		
+		CustomerDTO dto = null;
+		//회원정보 인증성공시
+		if(selectCnt == 1) {
+			//상세페이지 조회
+			dto = dao.getCustomerDetail(sessionID);
+		}
+		//6단계. jsp로 처리결과 전달
+		request.setAttribute("selectCnt", selectCnt);
+		request.setAttribute("dto", dto);
 	}
 
 	//회원정보 수정처리
 	@Override
 	public void modifyCustomerAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("CustomerServiceImpl - signInAction()");
 		
+		//3단계.화면에서 입력받은 값을 가져와서 DTO의 setter를 통해 값 전달
+		//DTO 생성 -> setter -> 멤버변수 
+		CustomerDTO dto = new CustomerDTO();
+		dto.setUser_id((String)request.getSession().getAttribute("sessionID"));
+		dto.setUser_password(request.getParameter("user_password"));
+		dto.setUser_name(request.getParameter("user_name"));
+		dto.setUser_birthday(Date.valueOf(request.getParameter("user_birthday")));
+		dto.setUser_address(request.getParameter("user_address"));
+		
+		// hp은 필수가 아니므로 null값이 들어올 수 있으므로 값이 존재할 때만 받아온다.(010 1234 5678)
+		String hp = "";
+		String hp1 = request.getParameter("user_hp1");
+		String hp2 = request.getParameter("user_hp2");
+		String hp3 = request.getParameter("user_hp3");
+		if(!hp1.equals("")&&!hp2.equals("")&&!hp3.equals("")) {
+			hp = hp1+"-" +hp2+"-"+hp3;
+		}
+		dto.setUser_hp(hp);
+		
+		
+		String email1 = request.getParameter("user_email");
+		String email2 = request.getParameter("user_email2");
+		String email = email1+"@"+email2;
+		dto.setUser_email(email);
+		
+		
+		//4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+		//CustomerDAOImpl dao = new CustomerDAOImpl();
+		CustomerDAO dao = CustomerDAOImpl.getInstance();
+		
+		//5단계. 회원수정 처리
+		int updateCnt = dao.updateCustomer(dto);
+		
+		//6.단계.jsp로 처리결과 전달
+		request.setAttribute("updateCnt", updateCnt);
 	}
 
 }

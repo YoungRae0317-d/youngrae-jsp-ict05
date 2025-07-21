@@ -104,6 +104,51 @@ public class CustomerController extends HttpServlet {
 			
 			viewPage="/common/main.jsp";
 		}
+		// [회원탈퇴]-----------------------
+		//회원탈퇴 - 인증화면
+		else if(url.equals("/deleteCustomer.do")) {
+			System.out.println("<<<url==>/deleteCustomer.do");
+			
+			
+			viewPage="/customer/mypage/customerinfo/deleteCustomer.jsp";
+		}
+		//회원탈퇴 처리
+		else if(url.equals("/deleteCustomerAction.do")) {
+			System.out.println("<<<url==>/deleteCustomerAction.do");
+			
+			service.deleteCustomerAction(request, response);
+			viewPage="/customer/mypage/customerinfo/deleteCustomerAction.jsp";
+		}
+		
+		
+		// [회원수정]-----------------------
+		// 회원수정 - 인증화면
+		else if(url.equals("/modifyCustomer.do")) {
+			System.out.println("<<<url==>/modifyCustomer.do");
+			
+			
+			viewPage="/customer/mypage/customerinfo/modifyCustomer.jsp";
+		}
+		
+		//회원수정 - 상세페이지
+		else if(url.equals("/modifyDetailAction.do")) {
+			System.out.println("<<<url==>/modifyDetailAction.do");
+			
+			service.modifyDetailAction(request, response);
+			
+			viewPage="/customer/mypage/customerinfo/modifyDetailAction.jsp";
+		}
+		
+		//회원수정 -수정처리
+		else if(url.equals("/modifyCustomerAction.do")) {
+			System.out.println("<<<url==>/modifyCustomerAction.do");
+			
+			
+			service.modifyCustomerAction(request, response);
+			viewPage="/customer/mypage/customerinfo/modifyCustomerAction.jsp";
+			
+		}
+		
 		
 		
 		

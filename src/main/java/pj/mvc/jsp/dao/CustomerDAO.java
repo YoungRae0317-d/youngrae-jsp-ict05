@@ -16,7 +16,7 @@ public interface CustomerDAO {
 	//회원정보 인증처리 및 탈퇴처리
 	public int deleteCustomer(String strId);
 	
-	//회원정보 인증처리 및 상세페이지 조회
+	//상세페이지 조회
 	public CustomerDTO getCustomerDetail(String strId);
 	
 	//회원정보 수정처리
