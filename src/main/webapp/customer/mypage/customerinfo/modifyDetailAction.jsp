@@ -1,6 +1,7 @@
 <%@page import="pj.mvc.jsp.dto.CustomerDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/common/setting.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,17 +11,17 @@
 <title>main</title>
 
 <!-- css -->
-<link rel="stylesheet" href="/jsp_pj_ict05/resources/css/common/header.css">
-<link rel="stylesheet" href="/jsp_pj_ict05/resources/css/common/footer.css">
-<link rel="stylesheet" href="/jsp_pj_ict05/resources/css/customer/join.css">
+<link rel="stylesheet" href="${path}/resources/css/common/header.css">
+<link rel="stylesheet" href="${path}/resources/css/common/footer.css">
+<link rel="stylesheet" href="${path}/resources/css/customer/join.css">
 <!-- js -->
 <script src="https://kit.fontawesome.com/7e22bb38b7.js" crossorigin="anonymous"></script>
 
 <!-- (3-4). 자바스크립트소스 연결 -->
 <!-- defer : html 을  다 읽은 후에 자바스크립트를 실행한다. 페이지가 모두 로드된 후에 해당 외부 스크립트 실행 -->
-<script src="/jsp_pj_ict05/resources/js/common/main.js" defer></script>
+<script src="${path}/resources/js/common/main.js" defer></script>
 
-<script src="/jsp_pj_ict05/resources/js/customer/modify.js" defer></script>
+<script src="${path}/resources/js/customer/modify.js" defer></script>
 </head>
 <body>
 	<div class="wrap">
@@ -42,17 +43,12 @@
 							<form name="modifyform" action="modifyCustomerAction.do" method="post"
 								onsubmit="return modifyCheck()">
 								
-								<%
-								int selectCnt = (Integer)request.getAttribute("selectCnt");
-								CustomerDTO dto = (CustomerDTO)request.getAttribute("dto");
-								
-								if(selectCnt == 1){
-								%>	
+								<c:if test="${selectCnt ==1 }">
 									<table>
 										<tr>
 											<th> 아이디 </th>
 											<td>
-												<%= dto.getUser_id() %>
+												${dto.getUser_id()}
 											</td>
 										</tr>
 										<tr>
@@ -70,26 +66,25 @@
 										<tr>	
 											<th> * 이름 </th>
 											<td>
-												<input type="text" class="input" name="user_name" size="20" value="<%=dto.getUser_name() %>" required>
+												<input type="text" class="input" name="user_name" size="20" value="${dto.getUser_name()}" required>
 											</td>
 										</tr>	
 										<tr>
 											<th> * 생년월일 </th>
 											<td>
-												<input type="date" class="input" name="user_birthday" size="10" value="<%=dto.getUser_birthday() %>" placeholder="공백없이 5자 이내로 작성" required>
+												<input type="date" class="input" name="user_birthday" size="10" value="${dto.getUser_birthday()}" placeholder="공백없이 5자 이내로 작성" required>
 											</td>
 										</tr>	
 										<tr>
 											<th> * 주소 </th>
 											<td>
-												<input type="text" class="input" name="user_address" size="50" value="<%=dto.getUser_address() %>">
+												<input type="text" class="input" name="user_address" size="50" value="${dto.getUser_address()}">
 											</td>
 										</tr>
 										<tr>
 											<th> 연락처 </th>
-											<%
-												if(dto.getUser_hp()==null){
-											%>
+											
+											<c:if test="${dto.getUser_hp()==null}">
 											<td>
 												<input type="text" class="input" name="user_hp1" size="3" style="width:50px">
 												-
@@ -97,32 +92,25 @@
 												-
 												<input type="text" class="input" name="user_hp3" size="4" style="width:70px">
 											</td>
-											<%		
-												}else{
-													String hp = dto.getUser_hp();
-													String[] hpArr = hp.split("-");
-											%>
+											</c:if>
+											<c:if test="${dto.getUser_hp()!=null}">
+												<c:set var="hpArr" value="${fn:split(dto.getUser_hp(),'-')}"/>
 											<td>
-												<input type="text" class="input" name="user_hp1" size="3" value="<%=hpArr[0] %>" style="width:50px">
+												<input type="text" class="input" name="user_hp1" size="3" value="${hpArr[0]}" style="width:50px">
 												-
-												<input type="text" class="input" name="user_hp2" size="4" value="<%=hpArr[1] %>" style="width:70px">
+												<input type="text" class="input" name="user_hp2" size="4" value="${hpArr[1]}" style="width:70px">
 												-
-												<input type="text" class="input" name="user_hp3" size="4" value="<%=hpArr[2] %>"style="width:70px">
+												<input type="text" class="input" name="user_hp3" size="4" value="${hpArr[2]}" style="width:70px">
 											</td>
-											<%		
-												}
-											%>
+											</c:if>
 										</tr>
 										<tr>
 											<th> * 이메일 </th>
-											<%		
-													String email = dto.getUser_email();
-													String[] emailArr = email.split("@");
-											%>
+											<c:set var="emailArr" value="${fn:split(dto.getUser_email(),'@')}"/>
 											<td>
-												<input type="text" class="input" name="user_email" size="20" value="<%= emailArr[0] %>" style="width:100px" required>
+												<input type="text" class="input" name="user_email" size="20" value="${emailArr[0]}" style="width:100px" required>
 												@
-												<input type="text" class="input" name="user_email2" size="20" value="<%= emailArr[1] %>" style="width:100px" required>
+												<input type="text" class="input" name="user_email2" size="20" value="${emailArr[1]}" style="width:100px" required>
 												<select class="input" name="user_email3" style="width:100px" onchange="detail_selectEmailChk()">
 													<option value="0">직접입력</option>
 													<option value="naver.com">naver.com</option>
@@ -138,20 +126,19 @@
 											<div align="right">
 												<input class="inputButton" type="submit" value="회원수정">
 												<input class="inputButton" type="reset" value="초기화">
-												<input class="inputButton" type="button" value="가입취소" onclick="window.location='main.do'">
+												<input class="inputButton" type="button" value="가입취소" onclick="window.location='${path}/main.do'">
 											</div>
 										</tr>
 									</table>
-								<%
-								}else{
-								%>	
+								</c:if>
+						
+								<c:if test="${selectCnt != 1 }">
 									<script type="text/javascript">
 										alert("인증실패!!");
-										window.location="/jsp_pj_ict05/modifyCustomer.do";
+										window.location="${path}/modifyCustomer.do";
 									</script>
-								<%
-								}
-								%>
+								</c:if>
+		
 								
 							</form>
 						</div>

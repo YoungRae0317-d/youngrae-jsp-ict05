@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/common/setting.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,15 +10,15 @@
 <title>main</title>
 
 <!-- css -->
-<link rel="stylesheet" href="/jsp_pj_ict05/resources/css/common/header.css">
-<link rel="stylesheet" href="/jsp_pj_ict05/resources/css/common/footer.css">
-<link rel="stylesheet" href="/jsp_pj_ict05/resources/css/customer/login.css">
+<link rel="stylesheet" href="${path}/resources/css/common/header.css">
+<link rel="stylesheet" href="${path}/resources/css/common/footer.css">
+<link rel="stylesheet" href="${path}/resources/css/customer/login.css">
 <!-- js -->
 <script src="https://kit.fontawesome.com/7e22bb38b7.js" crossorigin="anonymous"></script>
 
 <!-- (3-4). 자바스크립트소스 연결 -->
 <!-- defer : html 을  다 읽은 후에 자바스크립트를 실행한다. 페이지가 모두 로드된 후에 해당 외부 스크립트 실행 -->
-<script src="/jsp_pj_ict05/resources/js/common/main.js" defer></script>
+<script src="${path}/resources/js/common/main.js" defer></script>
 </head>
 <body>
 	<div class="wrap">
@@ -39,12 +40,7 @@
 							<form name="loginform" action="loginAction.do" method="post"
 								onsubmit="return loginCheck()">
 								
-								<%
-								String sessionID = (String)request.getSession().getAttribute("sessionID");
-								
-								//세션이 없는 경우 : 로그인 실패
-								if(sessionID == null){
-								%>
+								<c:if test="${sessionScope.sessionID == null}">
 									<script type="text/javascript">
 									alert("아이디와 비밀번호가 일치하지 않습니다.!!");
 									</script>
@@ -68,14 +64,12 @@
 											<div align="right">
 												<input class="inputButton" type="submit" value="로그인">
 												<input class="inputButton" type="reset" value="초기화">
-												<input class="inputButton" type="button" value="회원가입" onclick="window.location='join.do'">
+												<input class="inputButton" type="button" value="회원가입" onclick="window.location='${path}/join.do'">
 											</div>
 										</tr>
 									</table>
-								<%	
-								}
-								else{
-								%>
+								</c:if>
+								<c:if test="${sessionScope.sessionID != null}">
 									<script type="text/javascript">
 									alert("로그인 성공입니다.");
 									</script>
@@ -84,24 +78,26 @@
 										
 										<tr>
 											<th colspan="2" align="center">
-												<span style="color: blue"><b><%=sessionID %></b></span>님 <br>로컬호스트에 오신것을 진심으로 환영합니다.^^
+												<span style="color: blue"><b>${sessionScope.sessionID}</b></span>님 <br>로컬호스트에 오신것을 진심으로 환영합니다.^^
 											 </th>
 										</tr>
 										<tr>
 											<td colspan="2" style="border-bottom:none">
 											<br>
 											<div align="right">
-												<input class="inputButton" type="button" value="회원수정" onclick="window.location='/jsp_pj_ict05/modifyCustomer.do'">
-												<input class="inputButton" type="reset" value="회원탈퇴" onclick="window.location='/jsp_pj_ict05/deleteCustomer.do'">
-												<input class="inputButton" type="button" value="로그아웃" onclick="window.location='/jsp_pj_ict05/logout.do'">
+												<input class="inputButton" type="button" value="회원수정" onclick="window.location='${path}/modifyCustomer.do'">
+												<input class="inputButton" type="reset" value="회원탈퇴" onclick="window.location='${path}/deleteCustomer.do'">
+												<input class="inputButton" type="button" value="로그아웃" onclick="window.location='${path}/logout.do'">
+												
+												<!-- admin/1234로 가입후 admin으로 로그인 할 떄만 관리자 링크 보이게하기 -->
+												&nbsp;&nbsp;&nbsp;
+												<c:if test="${sessionScope.sessionID == 'admin'}">
+													<a href="${path}/board_list.bc" style="color:black">[관리자]</a>
+												</c:if>
 											</div>
 										</tr>
 									</table>
-								<%
-								}
-								%>
-								
-								
+								</c:if>	
 							</form>
 						</div>
 					</div>

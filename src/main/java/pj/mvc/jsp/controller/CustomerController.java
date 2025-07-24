@@ -146,11 +146,7 @@ public class CustomerController extends HttpServlet {
 			
 			service.modifyCustomerAction(request, response);
 			viewPage="/customer/mypage/customerinfo/modifyCustomerAction.jsp";
-			
 		}
-		
-		
-		
 		
 		//RequestDispatcher: 서블릿 또는 JSP 요청을 받은후에 다른 컴포넌트로 요청을 위임
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

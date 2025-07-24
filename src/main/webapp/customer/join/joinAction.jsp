@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/common/setting.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,17 +9,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>main</title>
 <!-- css -->
-<link rel="stylesheet" href="/jsp_pj_ict05/resources/css/common/header.css">
-<link rel="stylesheet" href="/jsp_pj_ict05/resources/css/common/footer.css">
-<link rel="stylesheet" href="/jsp_pj_ict05/resources/css/customer/join.css">
+<link rel="stylesheet" href="${path}/resources/css/common/header.css">
+<link rel="stylesheet" href="${path}/resources/css/common/footer.css">
+<link rel="stylesheet" href="${path}/resources/css/customer/join.css">
 <!-- js -->
 <script src="https://kit.fontawesome.com/7e22bb38b7.js" crossorigin="anonymous"></script>
 
 <!-- (3-4). 자바스크립트소스 연결 -->
 <!-- defer : html 을  다 읽은 후에 자바스크립트를 실행한다. 페이지가 모두 로드된 후에 해당 외부 스크립트 실행 -->
-<script src="/jsp_pj_ict05/resources/js/common/main.js" defer></script>
+<script src="${path}/resources/js/common/main.js" defer></script>
 
-<script src="/jsp_pj_ict05/resources/js/customer/join.js" defer></script>
+<script src="${path}/resources/js/customer/join.js" defer></script>
 </head>
 <body>
 	<div class="wrap">
@@ -27,27 +28,20 @@
 		<!-- header 끝 -->
 		
 		<!-- 컨텐츠 시작 -->
-		<%
-		int insertCnt = (Integer)request.getAttribute("insertCnt");
-		if(insertCnt == 1){
-		%>	
+		<c:if test="${insertCnt ==1}">	
 			<script type="text/javascript">
 				alert("회원가입성공!!!");
-				window.location="/jsp_pj_ict05/login.do";
+				window.location="${path}/login.do";
 			</script>
-		
-		
-		<%
-		}
-		else{
-		%>	
+		</c:if>
+			
+		<c:if test="${insertCnt !=1}">
 			<script type="text/javascript">
 				alert("회원가입실패ㅜㅜ");
-				window.location="/jsp_pj_ict05/join.do";
+				window.location="${path}/join.do";
 			</script>
-		<%	
-		}
-		%>
+		</c:if>
+		
 		<!-- 컨텐츠 끝 -->
 		
 		<!-- footer 시작 -->

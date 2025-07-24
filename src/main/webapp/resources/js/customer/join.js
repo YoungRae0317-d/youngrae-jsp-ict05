@@ -44,9 +44,9 @@ function signInCheck(){
 	}
 	
 	//비밀번호 불일치
-	if(document.inputform.user_password.value == document.inputform.re_password.value){
+	if(document.inputform.user_password.value != document.inputform.re_password.value){
 			alert("비밀번호(확인) 불일치!!");
-			document.inputform.user_id.focus();
+			document.inputform.user_password.focus();
 			return false;
 	}
 	

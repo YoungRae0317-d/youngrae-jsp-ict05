@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="common/setting.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,10 +11,9 @@
 
 <!-- <script type="text/javascript">
 	setTimeout(function(){
-		window.location="/jsp_pj_ict05/main.do";
+		window.location="${path}/main.do";
 	}, 1000);
-
-</script> -->
-
+</script>
+ -->
 </body>
 </html>
