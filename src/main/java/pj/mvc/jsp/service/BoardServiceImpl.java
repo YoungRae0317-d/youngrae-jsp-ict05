@@ -1,6 +1,7 @@
 package pj.mvc.jsp.service;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -127,7 +128,18 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void boardInsertAction(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("BoardServiceImpl-boardDeleteAction()");
 		
+		//3단계. 화면에서 입력받은 값을 가져온다.
+		BoardDTO dto = new BoardDTO();
+		dto.setB_title(request.getParameter("b_title"));
+		dto.setB_content(request.getParameter("b_content"));
+		dto.setB_password(request.getParameter("b_password"));
+		dto.setB_writer((String)request.getSession().getAttribute("sessionID"));
+		//4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+		BoardDAO dao = BoardDAOImpl.getInstance();
+		//5단계. 게시글 삭제처리 후 컨트롤러에서 board_list로 이동
+		dao.insertBoard(dto);
 	}
 
 	//댓글 작성 처리

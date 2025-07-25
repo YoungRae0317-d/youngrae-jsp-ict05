@@ -314,15 +314,58 @@ public class BoardDAOImpl implements BoardDAO{
 
 	//게시글 작성 처리
 	@Override
-	public int insertBoard(BoardDTO dto) {
+	public void insertBoard(BoardDTO dto) {
 		System.out.println("BoardDAOImpl - insertBoard()");
-		return 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			String sql = "INSERT INTO mvc_board_tbl(b_num, b_title, b_content, b_writer, b_password, b_readCnt, b_regDate, b_comment_count) "
+					+ "		VALUES((SELECT NVL(MAX(b_num)+1, 1) FROM mvc_board_tbl), ?, ?, ?, ?, 0, sysdate, 0) ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getB_title());
+			pstmt.setString(2, dto.getB_content());
+			pstmt.setString(3, dto.getB_writer());
+			pstmt.setString(4, dto.getB_password());
+			pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null)pstmt.close();
+				if(conn != null)conn.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				
+			}
+		}
 	}
 
 	//댓글 작성 처리
 	@Override
 	public int insertCommnet(BoardCommentDTO dto) {
 		System.out.println("BoardDAOImpl - insertCommnet()");
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			String sql = "";
+			pstmt = conn.prepareStatement(sql);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null)pstmt.close();
+				if(conn != null)conn.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				
+			}
+		}
 		return 0;
 	}
 
@@ -330,6 +373,25 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public List<BoardCommentDTO> commentList(int board_num) {
 		System.out.println("BoardDAOImpl - commentList()");
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			String sql = "";
+			pstmt = conn.prepareStatement(sql);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt != null)pstmt.close();
+				if(conn != null)conn.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				
+			}
+		}
 		return null;
 	}
 

@@ -92,27 +92,28 @@ public class BoardController extends HttpServlet {
 			return;
 		}
 		//[게시글 작성 화면]
-		if(url.equals("/")) {
-			System.out.println("<<<url ==>/.bc>>>");
-			
-			viewPage="";
+		if(url.equals("/board_insert.bc")) {
+			System.out.println("<<<url ==>/board_insert.bc>>>");
+			viewPage="admin/csCenter/board_insert.jsp";
 		}
 		//[게시글 작성 처리]
-		if(url.equals("/")) {
-			System.out.println("<<<url ==>/.bc>>>");
-			
-			viewPage="";
+		if(url.equals("/board_insertAction.bc")) {
+			System.out.println("<<<url ==>/board_insertAction.bc>>>");
+			service.boardInsertAction(request, response);
+			viewPage=request.getContextPath()+"/board_list.bc";
+			response.sendRedirect(viewPage);
+			return;
 		}
 		//[댓글 작성 처리]
 		if(url.equals("/")) {
 			System.out.println("<<<url ==>/.bc>>>");
-			
+			service.commentAddAction(request, response);
 			viewPage="";
 		}
 		//[댓글 목록]
 		if(url.equals("/")) {
 			System.out.println("<<<url ==>/.bc>>>");
-			
+			service.commentListAction(request, response);
 			viewPage="";
 		}
 		

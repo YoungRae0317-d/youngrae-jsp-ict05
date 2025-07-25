@@ -19,6 +19,14 @@
 <!-- (3-4). 자바스크립트소스 연결 -->
 <!-- defer : html 을  다 읽은 후에 자바스크립트를 실행한다. 페이지가 모두 로드된 후에 해당 외부 스크립트 실행 -->
 <script src="${path}/resources/js/common/main.js" defer></script>
+
+<script>
+	$(function(){
+		$('#btnInsert').click(function(){
+			location.href="${path}/board_insert.bc";
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="wrap">
@@ -111,6 +119,11 @@
 													</li>
 												</c:if>
 											</ul>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="5" align="center">
+											<input type="button" class="inputButton" value="글쓰기" id="btnInsert">
 										</td>
 									</tr>
 								</table>
